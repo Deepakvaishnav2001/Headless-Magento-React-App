@@ -41,7 +41,7 @@ const Login = () => {
                 navigate('/');
             }
         } catch (err) {
-            toast.error('Login failed');
+            toast.error(err.message);
         }
     };
 

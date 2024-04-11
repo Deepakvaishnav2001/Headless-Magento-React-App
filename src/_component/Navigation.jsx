@@ -33,7 +33,7 @@ const Layout = () => {
               {seeCategories == true && <CategoryList />}
             </li>
             <li>
-              {!isAuthenticated ? <Link to="/login"> &gt; Login</Link> : <span onClick={logout}> &gt; Logout</span> }
+              {!isAuthenticated ? <Link to="/login"> &gt; Login</Link> : <><Link to="/myaccount"> &gt; My Account</Link> <span onClick={logout}> &gt; Logout</span> </>}
             </li>
           </ul>
         </nav>

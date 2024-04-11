@@ -43,8 +43,7 @@ const SignUp = () => {
             toast.success('Login successful');
             navigate('/');
         } catch (err) {
-            console.error(err);
-            toast.error('Sign up failed');
+            toast.error(err.message);
         }
     };
 
@@ -70,7 +69,7 @@ const SignUp = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    autoComplete="given-name"
+                                    autoComplete="given-name"   
                                     name="firstName"
                                     value={firstname}
                                     onChange={(e) => setFirstname(e.target.value)}

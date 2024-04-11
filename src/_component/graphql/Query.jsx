@@ -100,3 +100,10 @@ export const CUSTOMER_DATA_QUERY = gql`
     }
   }
 `;
+export const AUTHENTICATE_CUSTOMER = gql`
+  {
+    customer {
+      email
+    }
+  }
+`;
