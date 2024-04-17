@@ -13,28 +13,31 @@ import 'react-toastify/dist/ReactToastify.css';
 import FooterLayout from './_component/FooterLayout';
 import Navigation from './_component/Navigation.jsx';
 import AuthenticateToken from './_component/AuthenticateToken.jsx';
-import MyAccount from "./pages/MyAccount";
+import UpdateDetails from "./pages/UpdateDetails";
+import ProductDetail from './pages/ProductDetails.jsx';
 
 function App() {
-  const isAuthenticated = localStorage.getItem('token');
+        const isAuthenticated = localStorage.getItem('token') ? true : false;
   return (
     <>
-      
       <ToastContainer toastClassName='toastContainerBox' transition={Slide} position='top-center' />
       <div className="d-flex flex-column min-vh-100">
         <BrowserRouter>
           <AuthenticateToken />
           <Navigation />
+        <div className="container-fluid flex-grow-1 py-3">
           <Routes>
             <Route path='/' index element={<Home />} />
             <Route path="/aboutus" element={< AboutUs />} />
             <Route path="/contactus" element={< ContactUs />} />
             <Route path="/login" element={isAuthenticated ? <Navigate to="/" replace /> : <Login />} />
             <Route path="/signup" element={isAuthenticated ? <Navigate to="/" replace /> : <Signup />} />
-            <Route path="/myaccount" element={isAuthenticated ? <MyAccount /> : <Navigate to="/" replace />} />
+            <Route path="/myaccount" element={isAuthenticated ? <UpdateDetails /> : <Navigate to="/" replace />} />
             <Route path="/logout" element={!isAuthenticated ? <Navigate to="/" replace /> :  <Logout />} />
             <Route path="/cat/:id" element={<CategoryPage />} />
+            <Route path="/product_id/:id" element={<ProductDetail />} />
           </Routes>
+        </div>
         </BrowserRouter>
         <FooterLayout />
       </div >

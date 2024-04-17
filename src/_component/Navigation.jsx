@@ -11,7 +11,7 @@ const Layout = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
-        navigate('/');
+    window. location. reload();
   }
 
   return (
@@ -28,10 +28,7 @@ const Layout = () => {
             <li>
               <Link to="/contactus"> &gt; Contact Us</Link>
             </li>
-            <li onMouseEnter={() => { setseeCategories(true) }}
-              onMouseLeave={() => { setseeCategories(false) }}>&gt; Categories
-              {seeCategories == true && <CategoryList />}
-            </li>
+            <CategoryList />
             <li>
               {!isAuthenticated ? <Link to="/login"> &gt; Login</Link> : <><Link to="/myaccount"> &gt; My Account</Link> <span onClick={logout}> &gt; Logout</span> </>}
             </li>

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { PRODUCTS } from '../_component/graphql/Query';
 import { useParams, Link } from "react-router-dom";
-
+import { Box, Container } from '@mui/system';
+import ProductCard from '../_component/ProductCard';
+import '../_component/css/CategoryPage.css';
 
 
 const CategoryPage = () => {
@@ -17,28 +19,18 @@ const CategoryPage = () => {
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div>
-            {data.products.items.map((item) => (
-                <li key={item.sku}>{item.name}</li>
-            ))}{/* 
-      <ul>
-        {data.category.children.map((category) => (
-          <li key={category.id} 
-          onMouseEnter={() => handleCategoryEnter(category.id)}
-          onMouseLeave={handleCategoryLeave}
-          >
-            &gt; <Link to={`cat/${category.id}`}> {category.name} </Link>
-            {hoveredCategoryId === category.id && (
-              <ul>
-                {category.children.map((subcategory) => (
-                  <li key={subcategory.id} > &gt; <Link to={`cat/${subcategory.id}`}> {subcategory.name} </Link></li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul> */}
-        </div>
+       <>
+            <Container maxWidth='xl' style={{ marginTop: 90, display: 'flex', justifyContent: "center", flexDirection: "column" }}>
+                {loading}
+                <Container maxWidth='xl' style={{ marginTop: 10, display: "flex", justifyContent: 'center', flexWrap: "wrap", paddingBottom: 20, marginBottom: 30, width: '100%' }}>
+                    {data.products.items.map(prod => (
+                        <Link to={`/product_id/${prod.sku}`} key={prod.sku}>
+                            <ProductCard prod={prod} />
+                        </Link>
+                    ))}
+                </Container>
+            </Container >
+        </>
     );
 };
 

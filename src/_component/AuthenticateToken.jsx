@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AUTHENTICATE_CUSTOMER } from './graphql/Query.jsx';
 
 const AuthenticateToken = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    //use router.push and customhook to replace this component
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,27 +22,13 @@ const AuthenticateToken = () => {
         const token = localStorage.getItem('token');
 
         if (token) {
-            // Use the GraphQL query to fetch the customer data
-            if (!loading && !error && data) {
-                console.log(data);
-                setIsAuthenticated(true);
-                // setCustomerData(data.customer);
-            } else if (error) {
-                console.log(error.message);
-                // If the token is invalid, logout the user
-                // localStorage.removeItem('token');.
+            if (error) {
+                localStorage.removeItem('token');
                 navigate('/login');
             }
         } 
     }, [location.pathname, navigate, loading, error, data]);
 
-    return isAuthenticated ? (
-        // Render the content of the page if the user is authenticated
-        <div>Authenticated</div>
-    ) : (
-        // Render a loading or error message while the authentication is in progress
-        <div>No logged...</div>
-    );
 };
 
 export default AuthenticateToken;

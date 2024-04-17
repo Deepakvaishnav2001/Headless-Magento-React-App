@@ -25,3 +25,35 @@ export const SIGNUP_MUTATION = gql`
     }
   }
 `;
+
+
+export const UPDATE_CUSTOMER_MUTATION = gql`
+mutation updateCustomer(
+  $firstname: String!
+  $lastname: String!
+) {
+  updateCustomer(
+    input: {
+      firstname: $firstname
+      lastname: $lastname
+    }
+  ) {
+    customer {
+      firstname
+      lastname
+      }
+    }
+}
+`;
+
+export const DELETE_CUSTOMER_MUTATION = gql`
+  mutation deleteCustomer($email: String!, $password: String!) {
+    deleteCustomer(input: { email: $email, password: $password }) {
+      customer {
+        firstname
+        lastname
+        email
+      }
+    }
+  }
+`;

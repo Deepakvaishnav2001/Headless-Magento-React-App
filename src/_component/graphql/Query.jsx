@@ -7,13 +7,17 @@ query GetProducts($categoryId: String!){
   products(
     filter: {category_id: {eq: $categoryId}},
     sort: {name: ASC},
-    pageSize: 2,
+    pageSize: 12,
     currentPage: 1
   ) {
     total_count
     items {
       name
       sku
+      image {
+        url
+        label
+      }
       price_range {
         minimum_price {
           regular_price {
@@ -100,10 +104,99 @@ export const CUSTOMER_DATA_QUERY = gql`
     }
   }
 `;
+
+
 export const AUTHENTICATE_CUSTOMER = gql`
   {
     customer {
       email
     }
   }
+`;
+
+export const GET_PRODUCT_BY_SKU_QUERY = gql`
+query getProductBySku($sku: String!) {
+  products(filter: { sku: { eq: $sku } }) {
+    items {
+      id
+      sku
+      name
+      description {
+        html
+      }
+      short_description {
+        html
+      }
+      image {
+        url
+        label
+      }
+      media_gallery_entries {
+        id
+        file
+        label
+      }
+      price_range {
+        minimum_price {
+          final_price {
+            value
+            currency
+          }
+          regular_price {
+            value
+            currency
+          }
+        }
+      }
+      categories {
+        id
+        name
+        breadcrumbs {
+          category_name
+          category_id
+        }
+      }
+      ... on ConfigurableProduct {
+        configurable_options {
+          id
+          label
+          values {
+            value_index
+            label
+            swatch_data {
+              value
+              ... on ImageSwatchData {
+                thumbnail
+              }
+            }
+          }
+        }
+        variants {
+          product {
+            id
+            sku
+            name
+            price_range {
+              minimum_price {
+                final_price {
+                  value
+                  currency
+                }
+                regular_price {
+                  value
+                  currency
+                }
+              }
+            }
+            media_gallery_entries {
+              id
+              file
+              label
+            }
+          }
+        }
+      }
+    }
+  }
+}
 `;

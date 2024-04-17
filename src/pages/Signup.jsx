@@ -9,7 +9,6 @@ import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, InputAdo
 import { MdLockOutline } from 'react-icons/md'
 import { Box, Container } from '@mui/system'
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
 
 
 const SignUp = () => {
@@ -22,7 +21,6 @@ const SignUp = () => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-    const navigate = useNavigate();
 
 
     const [signup, { loading, error }] = useMutation(SIGNUP_MUTATION);
@@ -41,7 +39,7 @@ const SignUp = () => {
             localStorage.setItem('token', data.generateCustomerToken.token);
             toast.success('Sign up successful');
             toast.success('Login successful');
-            navigate('/');
+                window. location. reload();
         } catch (err) {
             toast.error(err.message);
         }

@@ -8,7 +8,6 @@ import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, InputAdo
 import { Box, Container } from '@mui/system'
 import { MdLockOutline } from 'react-icons/md'
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -17,8 +16,6 @@ const Login = () => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-
-    const navigate = useNavigate();
 
     const [login, { loading, error }] = useMutation(LOGIN_MUTATION);
 
@@ -38,7 +35,7 @@ const Login = () => {
                 });
                 localStorage.setItem('token', data.generateCustomerToken.token);
                 toast.success('Login successful');
-                navigate('/');
+                window. location. reload();
             }
         } catch (err) {
             toast.error(err.message);
